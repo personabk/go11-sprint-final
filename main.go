@@ -102,6 +102,21 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	// --- ВСТАВЛЕННЫЙ БЛОК ---
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS parcel (
+        number INTEGER PRIMARY KEY AUTOINCREMENT,
+        client INTEGER,
+        status TEXT,
+        address TEXT,
+        created_at TEXT
+    );`)
+	if err != nil {
+		fmt.Println("Ошибка создания таблицы:", err)
+		return
+	}
+	// -----------------------
+
 	defer db.Close()
 
 	store := NewParcelStore(db)
